@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom GPT</title>
+    <!-- Include Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const textArea = document.getElementById("text-area");
+            if (textArea) {
+                textArea.focus();  // Set focus to the text area when the page loads
+            }
+        });
+
+        document.addEventListener("htmx:afterSwap", function(event) {
+            if (event.detail.successful) {
+                // Get the form that triggered the event
+                const form = event.target;
+
+                // Check if the target is a form and clear its fields
+                if (form.tagName === "FORM") {
+                    form.reset();  // This will clear the form fields
+                }
+
+                const chatContent = document.getElementById("chat-content");
+                if (chatContent) {
+                    chatContent.scrollTop = chatContent.scrollHeight;  // Scroll to the bottom
+                }
+            }
+        });
+
+        function appendChatMessage(event) {
+            //event.preventDefault();
+
+            const textArea = document.getElementById("text-area");
+
+            // Get the text from the text area
+            const message = textArea.value.trim();
+            if (textArea) {
+                const chatContent = document.getElementById("chat-content");
+                if (chatContent) {
+                    if (message) {
+                        // Create a new message element
+                        const newMessage = document.createElement("div");
+                        newMessage.className = "query-style"; // You can add styles as needed
+                        newMessage.innerHTML = message; // Append the message content
+
+                        // Append the new message to the chat content
+                        chatContent.appendChild(newMessage);
+
+
+                        // Clear the text area
+                        textArea.value = "";
+                    }
+                    chatContent.scrollTop = chatContent.scrollHeight;
+                }
+            }
+        }
+
+    </script>
+
+
+
+    <!-- Custom CSS -->
+    <style>
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 96vh;  /* Full viewport height */
+            width: 99vw;
+        }
+
+        /* Scrollable chat content */
+        .chat-content {
+            flex-grow: 1;  /* Fills the remaining space */
+            overflow-y: auto;  /* Enables scrolling when content overflows */
+            padding-left: 1em;
+            margin-right: 0em;
+            scrollbar-width: auto;
+            scrollbar-color:  #cccccc #393939;
+            margin-bottom: 1em;
+
+        }
+
+
+
+        .chat-form {
+            bottom: 0;
+            padding-left: 1em;
+
+        }
+
+        .query-style {
+            text-align: right;
+            margin-top: 0.3em;
+            padding:0.3em;
+        }
+
+        .chat-style{
+            text-align: left;
+            color: #cccccc; /* Light gray text */
+
+        }
+
+
+        .bg-gray {
+            background-color: #393939;
+        }
+         /* Text area with specific styles */
+        .text-area {
+            max-height: 200px; /* Limit the height to allow scrolling */
+            overflow-y: auto;  /* Allow vertical scrolling */
+            resize: vertical; /* Allow resizing vertically */
+            background-color: #393939;
+            color: #cccccc; /* Light gray text */
+            display: flex;
+            flex-direction: column;
+           /* border: 2px solid #333;  Border at the top */
+        }
+
+        /* Override focus state to prevent color change */
+        .text-area:focus {
+            background-color: #393939;
+            color: #cccccc;
+            border: 0px solid #cccccc;
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.07rem rgba(204, 204, 204, 1.00);
+        }
+
+        .btn-custom {
+            background-color: #cccccc; /* Custom gray background */
+            color: #393939; /* Custom text color */
+            border: 1px solid #b0b0b0; /* Optional border */
+            margin-top: 1em;
+            outline: none;
+        }
+
+        /* Change color on hover to make it interactive */
+        .btn-custom:hover {
+            background-color: #b0b0b0; /* Darker shade on hover */
+            color: #393939; /* Text color remains the same */
+
+        }
+         .btn-custom:focus {
+         outline: none;
+         box-shadow: 0 0 0 0rem rgba(40, 167, 69, 0.25);
+         }
+
+
+    </style>
+</head>
+<body class="bg-gray">
+ <div class="chat-container">
+
+        <div id="chat-content" class="chat-content  chat-style">
+		
+           
+        </div>
+		
+		
+</button>
+
+        <div class=" chat-form">
+            <!-- HTMX-based form -->
+            <form
+                hx-post="http://127.0.0.1:8000/input/"
+                hx-target="#chat-content"
+                hx-swap="beforeend"
+                hx-on::before-request="appendChatMessage(event)"
+			
+
+            >
+			 <p class='htmx-indicator'>loading...</p> <!-- https://htmx.org/attributes/hx-indicator/ could be done better but for now its good -->
+                <textarea
+                    id="text-area"
+                    class="form-control text-area"
+                    placeholder="Type here..."
+                    name="query"
+                    rows="5"
+					
+                    onkeydown="if (event.key === 'Enter' && !event.shiftKey) { this.form.requestSubmit(); event.preventDefault(); }"
+                > </textarea>
+                <button type="submit" class="btn  btn-custom" > Send </button>
+            </form>
+        </div>
+ </div>
+
+
+    <!-- Include Bootstrap's JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
