@@ -97,10 +97,10 @@ def caluclateEmbeddingsOfContext( loaded_documents):
     """Calculates embeddings from loaded documents and stores in a vector store"""
 
 
-    PINECONE_API_KEY = "2bf10b7e-86c5-4477-89bf-02628836beda"
+    PINECONE_API_KEY = "HERE IT GOES"
     os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
 
-    pine = pinecone.Pinecone(api_key="b3fdd559-915c-46a2-833e-bfddd537fdb4")
+    pine = pinecone.Pinecone(api_key="HERE IT GOES")
     index = pine.Index("kafka-rag-index")
 
     #  Generate  embeddings for the text data
@@ -135,7 +135,7 @@ def storeEmbeddingsOfContextInPineconeUsingLangchain( loaded_documents):
     """Calculates embeddings from loaded documents and stores in a vector store,
      the docs should be filtered for duplicates by now"""
 
-    PINECONE_API_KEY = "2bf10b7e-86c5-4477-89bf-02628836beda"
+    PINECONE_API_KEY = "HERE IT GOES"
     embeddings = MyEmbeddings()
 
     if loaded_documents!=None and len(loaded_documents) > 0:
