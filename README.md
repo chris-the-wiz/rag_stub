@@ -17,7 +17,7 @@ Working and ready to be containerized.
 6. Profit
 
 At the first run it needs to generate the embeddings. This takes time. 
-The context files for rag should be stored at 
+
 
 ## ENV VARIABLES:
 
