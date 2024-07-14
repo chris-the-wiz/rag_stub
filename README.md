@@ -21,10 +21,10 @@ The context files for rag should be stored at
 
 ## ENV VARIABLES:
 
-POSTGRES_CONNECTION_STRING=postgresql://<name>:<pass>@<ip>:<port>/<db>
-PINECONE_API_KEY=get-it-from-pinecone-dashboard
-DATA_DIR="/where/do/you/keep/your/input/files/to/generate/embeddings"
-STORAGE=postgres_langchain | pinecone  |  postgres
+ - POSTGRES_CONNECTION_STRING=postgresql://<name>:<pass>@<ip>:<port>/<db>
+ - PINECONE_API_KEY=get-it-from-pinecone-dashboard
+ - DATA_DIR="/where/do/you/keep/your/input/files/to/generate/embeddings"
+ - STORAGE=postgres_langchain | pinecone  |  postgres
 
 ## TODO:
  - dockerfile
