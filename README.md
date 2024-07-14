@@ -7,7 +7,7 @@ Langchain + pinecone embeddings + fastAPI backend + htmx frontend
 
 Working and ready to be containerized. 
 
-##USAGE:
+## USAGE:
 
 1. Run LM Studio and load  your fav LLM model and embbedings model.
 2. Set your environmental variables
