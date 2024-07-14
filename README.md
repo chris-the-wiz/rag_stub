@@ -16,7 +16,7 @@ Working and ready to be containerized.
 5. ???
 6. Profit
 
-At the first run it needs to generate the embeddings. This takes time. 
+At the first run the embeddings need to be generated. This takes time. 
 
 
 ## ENV VARIABLES:
